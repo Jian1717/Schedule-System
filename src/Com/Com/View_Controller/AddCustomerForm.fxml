@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Com.View_Controller.AddCustomerFormController">
+   <children>
+      <ComboBox fx:id="customerFirstLevelDivisionComboBox" layoutX="143.0" layoutY="210.0" prefWidth="150.0" />
+      <ComboBox fx:id="customerCountryComboBOX" layoutX="388.0" layoutY="210.0" onAction="#CountrySelected" prefWidth="150.0" />
+      <Label layoutX="38.0" layoutY="43.0" prefHeight="32.0" prefWidth="150.0" text="Customer ID" />
+      <Label layoutX="38.0" layoutY="84.0" prefHeight="32.0" prefWidth="150.0" text="Name" />
+      <Label layoutX="38.0" layoutY="123.0" prefHeight="32.0" prefWidth="150.0" text="Phone" />
+      <Label layoutX="38.0" layoutY="162.0" prefHeight="32.0" prefWidth="97.0" text="Address" />
+      <TextField fx:id="customerIDTextField" disable="true" editable="false" layoutX="143.0" layoutY="47.0" promptText="Auto Generated" />
+      <TextField fx:id="customerNameTextField" layoutX="143.0" layoutY="88.0" />
+      <TextField fx:id="customerPhoneTextField" layoutX="143.0" layoutY="127.0" />
+      <TextField fx:id="customerAddressTextField" layoutX="143.0" layoutY="166.0" />
+      <Label layoutX="306.0" layoutY="163.0" prefHeight="32.0" prefWidth="65.0" text="Postal Code" />
+      <TextField fx:id="customerPostalCodeTextField" layoutX="387.0" layoutY="167.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="34.0" layoutY="207.0" prefHeight="32.0" prefWidth="105.0" text="First Level Division" />
+      <Label layoutX="306.0" layoutY="208.0" prefHeight="32.0" prefWidth="65.0" text="Country" />
+      <Button layoutX="436.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#customerAddButtonClicked" text="Add" />
+      <Button layoutX="485.0" layoutY="252.0" mnemonicParsing="false" onMouseClicked="#customerCancelClicked" text="Cancel" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,263 @@
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-03-31T19:41:02.034476600Z</date>
+  <millis>1680291662034</millis>
+  <nanos>476600</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-03-31T15:41:02.029474500</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-03-31T19:43:14.753243200Z</date>
+  <millis>1680291794753</millis>
+  <nanos>243200</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: False TimeStamp: 2023-03-31T15:43:14.747243400</message>
+</record>
+<record>
+  <date>2023-03-31T19:43:16.803200200Z</date>
+  <millis>1680291796803</millis>
+  <nanos>200200</nanos>
+  <sequence>1</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: False TimeStamp: 2023-03-31T15:43:16.803200200</message>
+</record>
+<record>
+  <date>2023-03-31T19:43:19.006198200Z</date>
+  <millis>1680291799006</millis>
+  <nanos>198200</nanos>
+  <sequence>2</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-03-31T15:43:19.006198200</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-03-31T20:45:48.273917900Z</date>
+  <millis>1680295548273</millis>
+  <nanos>917900</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-03-31T16:45:48.266935800</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-03-31T20:48:00.641990300Z</date>
+  <millis>1680295680641</millis>
+  <nanos>990300</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-03-31T16:48:00.636992700</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T03:30:06.964903Z</date>
+  <millis>1680406206964</millis>
+  <nanos>903000</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-01T23:30:06.959903700</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T03:38:11.095599200Z</date>
+  <millis>1680406691095</millis>
+  <nanos>599200</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-01T23:38:11.090598600</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T04:02:33.788492900Z</date>
+  <millis>1680408153788</millis>
+  <nanos>492900</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T00:02:33.783493500</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T04:03:14.754822Z</date>
+  <millis>1680408194754</millis>
+  <nanos>822000</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T00:03:14.749820900</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T13:34:46.491746100Z</date>
+  <millis>1680442486491</millis>
+  <nanos>746100</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T09:34:46.486744500</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T13:36:45.405996600Z</date>
+  <millis>1680442605405</millis>
+  <nanos>996600</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T09:36:45.400999600</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T13:38:09.357186900Z</date>
+  <millis>1680442689357</millis>
+  <nanos>186900</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T09:38:09.352187100</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T13:40:12.934258800Z</date>
+  <millis>1680442812934</millis>
+  <nanos>258800</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T09:40:12.928258400</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T14:10:15.335398Z</date>
+  <millis>1680444615335</millis>
+  <nanos>398000</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T10:10:15.330397800</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T14:11:45.736606100Z</date>
+  <millis>1680444705736</millis>
+  <nanos>606100</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T10:11:45.730608600</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-02T14:16:03.065774400Z</date>
+  <millis>1680444963065</millis>
+  <nanos>774400</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-02T10:16:03.060774400</message>
+</record>
+</log>
