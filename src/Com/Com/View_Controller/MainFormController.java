@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -89,7 +90,7 @@ public class MainFormController implements Initializable {
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.get() == ButtonType.OK) {
             if (!(customerTableView.getSelectionModel().getSelectedItem()==null)) {
-                int totalNumberOfAppointmentWithCustomer=DBHelper.getTotalAppointmentOfCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
+                int totalNumberOfAppointmentWithCustomer=DBHelper.getTotalAppointmentOfCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID()).size();
                 if(totalNumberOfAppointmentWithCustomer>0){
                     Alert confirmationAlert1 = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert1.setTitle("Confirmation Dialog");
@@ -149,6 +150,10 @@ public class MainFormController implements Initializable {
         }
     }
 
+    public void appointmentComboBoxClicked(ActionEvent actionEvent) throws SQLException {
+        appointmentFilter(appointmentComboBox.getValue());
+    }
+
     public void logOffClicked(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));
         Stage stage = (Stage) ((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerNode().getScene().getWindow();
@@ -156,7 +161,6 @@ public class MainFormController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appointmentFilterList = FXCollections.observableArrayList();
@@ -191,4 +195,27 @@ public class MainFormController implements Initializable {
         appointmentTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
         appointmentTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
     }
+    private void appointmentFilter(String filter) throws SQLException {
+        LocalDateTime now=LocalDateTime.now();
+        switch (filter){
+            case "Week":
+                setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList().filtered(s->{
+                    if(s.getStart().isBefore(now)||s.getStart().isAfter(now.plusDays(7))){
+                        return false;
+                    }
+                    return true;
+                }));
+                break;
+            case "Month":
+                setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList().filtered(s->{
+                    if(s.getStart().isBefore(now)||s.getStart().isAfter(now.plusMonths(1))){
+                        return false;
+                    }
+                    return true;                }));
+                break;
+            default:
+                setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList());
+        }
+    }
+
 }

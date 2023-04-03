@@ -46,7 +46,7 @@
             <Button layoutX="35.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#appointmentModifyClicked" text="Modify" />
             <Button layoutX="748.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#appointmentAddClicked" text="Add" />
             <Button layoutX="793.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#appointmentDeleteClicked" text="Delete" />
-            <ComboBox fx:id="appointmentComboBox" layoutX="695.0" layoutY="282.0" prefWidth="150.0" />
+            <ComboBox fx:id="appointmentComboBox" layoutX="695.0" layoutY="282.0" onAction="#appointmentComboBoxClicked" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </center>

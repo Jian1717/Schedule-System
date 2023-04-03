@@ -1,6 +1,7 @@
 package Com.View_Controller;
 
 import Com.DAO.DBHelper;
+import Com.Helper.TimeHelper;
 import Com.Model.Appointment;
 import Com.Model.Contact;
 import Com.Model.Customer;
@@ -99,8 +100,9 @@ public class AddAppointmentFormController implements Initializable {
             throwables.printStackTrace();
         }
     }
-    private boolean inputValidation(){
+    private boolean inputValidation() throws SQLException {
         String errorMessage="";
+        boolean isAllDateFillOut=true;
         if(appointmentDescriptionTextField.getText().isEmpty()){
             errorMessage+="please fill out description \n";
         }
@@ -115,15 +117,40 @@ public class AddAppointmentFormController implements Initializable {
         }
         if(startDatePicker.getValue()==null){
             errorMessage+="please fill out start date \n";
+            isAllDateFillOut=false;
         }
         if(appointmentStartTimeTextField.getText().isEmpty()){
             errorMessage+="please fill out start time \n";
+            isAllDateFillOut=false;
         }
         if(endDatePicker.getValue()==null){
             errorMessage+="please fill out end date \n";
+            isAllDateFillOut=false;
         }
         if(appointmentEndTimeTextField.getText().isEmpty()){
             errorMessage+="please fill out end time \n";
+            isAllDateFillOut=false;
+        }
+        if(isAllDateFillOut){
+            LocalDateTime testDate1=LocalDateTime.of(startDatePicker.getValue(), LocalTime.parse(appointmentStartTimeTextField.getText()));
+            LocalDateTime testDate2=LocalDateTime.of(endDatePicker.getValue(), LocalTime.parse(appointmentEndTimeTextField.getText()));
+            if(testDate2.isBefore(testDate1)){
+                errorMessage+="Appointment start daytime is after end daytime. Please fix the input. ";
+            }else {
+                if(TimeHelper.isInBusinessHours(testDate1,testDate2)&&!(customerComboBox.getSelectionModel().getSelectedItem()==null)){
+                    boolean isOverlap=false;
+                    for (Appointment appointment:DBHelper.getTotalAppointmentOfCustomer(customerComboBox.getSelectionModel().getSelectedItem().getCustomerID())){
+                        if(TimeHelper.isOverlapTime(appointment.getStart(),appointment.getEnd(),testDate1,testDate2)){
+                            isOverlap=true;
+                        }
+                    }
+                    if(isOverlap){
+                        errorMessage+="Selected appointment time frame is overlapping with other appintment.  please choose other time.";
+                    }
+                }else {
+                    errorMessage+="Selected appointment time is outside business hours(8:00 a.m. to 10:00 p.m. EST)";
+                }
+            }
         }
         if (customerComboBox.getSelectionModel().getSelectedItem()==null){
             errorMessage+="Please select a customer \n";

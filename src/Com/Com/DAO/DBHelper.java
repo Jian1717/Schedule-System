@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface DBHelper {
     public static int insertAppointment(String title, String description, String type, String location, LocalDateTime start, LocalDateTime end, int user_ID, int customer_ID, int contact_ID) throws SQLException {
@@ -219,15 +221,16 @@ public interface DBHelper {
         }
         return userList;
     }
-    public static int getTotalAppointmentOfCustomer(int customerID) throws SQLException {
+    public static List<Appointment> getTotalAppointmentOfCustomer(int customerID) throws SQLException {
         int result=0;
+        ArrayList<Appointment> resultList=new ArrayList<Appointment>();
         String sql="Select * from APPOINTMENTS WHERE Customer_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
         sqlQueryStatement.setInt(1,customerID);
         ResultSet resultSet=sqlQueryStatement.executeQuery();
-        if(resultSet.next()){
-            result++;
+        while (resultSet.next()){
+            resultList.add(new Appointment(resultSet.getInt("Appointment_ID"),resultSet.getString("Title"),resultSet.getString("Description"),resultSet.getString("Type"),resultSet.getString("Location"),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("Start").toLocalDateTime()),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("End").toLocalDateTime()),resultSet.getInt("User_ID"),resultSet.getInt("Customer_ID"),resultSet.getInt("Contact_ID")));
         }
-        return result;
+        return resultList;
     }
 }

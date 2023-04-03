@@ -17,7 +17,7 @@ public interface TimeHelper {
         return localDateTime.atZone(ZoneId.of("UTC")).withZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime();
     }
     public static LocalTime toESTTime(LocalDateTime localDateTime){
-        return localDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("ETC")).toLocalTime();
+        return localDateTime.atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("America/New_York")).toLocalTime();
     }
     public static boolean isOverlapTime(LocalDateTime startDateTime1,LocalDateTime endDateTime1,LocalDateTime startDateTime2,LocalDateTime endDateTime2){
         if(startDateTime1.isEqual(startDateTime2)){
@@ -35,10 +35,10 @@ public interface TimeHelper {
         boolean result=true;
         LocalTime startTime=toESTTime(startDateTime);
         LocalTime endTime=toESTTime(endDateTime);
-        if(startTime.isBefore(openHours)||startTime.isAfter(closeHours)){
+        if(startTime.isBefore(openHours)){
             result=false;
         }
-        if(endTime.isAfter(closeHours)||endTime.isBefore(openHours)){
+        if(endTime.isAfter(closeHours)){
             result=false;
         }
         return result;
