@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
 
 
 public class MainFormController implements Initializable {
-    private ObservableList<String> appointmentFilterList;
     @FXML
     private TableView<Customer> customerTableView;
     @FXML
@@ -187,7 +186,7 @@ public class MainFormController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appointmentFilterList = FXCollections.observableArrayList();
+        ObservableList<String> appointmentFilterList = FXCollections.observableArrayList();
         appointmentFilterList.addAll("All","Month","Week");
         appointmentComboBox.setItems(appointmentFilterList);
         appointmentComboBox.setTooltip(new Tooltip("please select a filter"));

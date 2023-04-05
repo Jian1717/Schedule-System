@@ -31,80 +31,40 @@ public class Appointment {
         return appointmentID;
     }
 
-    public void setAppointmentID(int appointmentID) {
-        this.appointmentID = appointmentID;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public LocalDateTime getStart() {
         return start;
-    }
-
-    public void setStart(LocalDateTime start) {
-        this.start = start;
     }
 
     public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
-
     public int getUserID() {
         return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
     }
 
     public int getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
-
     public int getContactID() {
         return contactID;
-    }
-
-    public void setContactID(int contactID) {
-        this.contactID = contactID;
     }
 
     public String getStartTime(){

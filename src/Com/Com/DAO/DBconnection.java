@@ -5,27 +5,25 @@ import java.sql.SQLException;
 public class DBconnection {
 
     private static Connection connection;
-    private String userName="sqlUser";
-    private String password="Passw0rd!";
-    private String driver="com.mysql.cj.jdbc.Driver";
-    private String url="jdbc:mysql://localhost:3306/client_schedule";
 
     public DBconnection(){
         tryConnectDB();
     }
 
-    public boolean tryConnectDB(){
+    public void tryConnectDB(){
         try {
+            String driver = "com.mysql.cj.jdbc.Driver";
             Class.forName(driver);
-            connection=DriverManager.getConnection(url,userName,password);
-            return true;
+            String userName = "sqlUser";
+            String password = "Passw0rd!";
+            String url = "jdbc:mysql://localhost:3306/client_schedule";
+            connection=DriverManager.getConnection(url, userName, password);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    public static void closeConnection() throws SQLException {
+    public static void closeConnection() {
         try {
             connection.close();
         } catch (SQLException e) {
@@ -38,31 +36,4 @@ public class DBconnection {
         return connection;
     }
 
-    public static void setConnection(Connection connection) {
-        DBconnection.connection = connection;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

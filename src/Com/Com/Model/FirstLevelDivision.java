@@ -15,14 +15,6 @@ public class FirstLevelDivision {
         return divisionID;
     }
 
-    public String getDivisionName() {
-        return divisionName;
-    }
-
-    public int getCountryID() {
-        return countryID;
-    }
-
     @Override
     public String toString() {
         return divisionName;

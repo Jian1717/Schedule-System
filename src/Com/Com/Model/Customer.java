@@ -25,48 +25,24 @@ public class Customer {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getAddress() {
         return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public int getDivisionID() {
         return divisionID;
     }
 
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
-    }
-
     public String getPostalCode() {
         return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
     }
 
     public String getFullAddress() throws SQLException {
