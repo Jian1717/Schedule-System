@@ -12,13 +12,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**ReportFormController handle all the event, action and GUI components that happened in ReportForm. */
 public class ReportFormController {
     @FXML
     private Label resultTitleLabel;
     @FXML
     private ScrollPane resultScrollPane;
-
+    /**This Method change GUI into main form.
+     * @param mouseEvent cancel OK clicked*/
     public void resultOKClicked(MouseEvent mouseEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
@@ -26,6 +27,9 @@ public class ReportFormController {
         stage.setScene(scene);
         stage.show();
     }
+    /**This method set up ReportForm GUI depends on different report type.
+     *@param content report detail
+     *@param title report title*/
     public void setResultForm(String title,String content){
         resultTitleLabel.setText(title);
         resultScrollPane.setContent(new Text(content));

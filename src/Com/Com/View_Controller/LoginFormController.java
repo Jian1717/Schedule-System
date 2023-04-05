@@ -24,9 +24,8 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-
+/**LoginFormController handle all the event, action and GUI components that happened in LoginForm. */
 public class LoginFormController implements Initializable {
-    private ObservableList<String> languageList;
     private LogHelper loginLogger;
     @FXML
     private ComboBox<String> languageDropdown;
@@ -44,7 +43,9 @@ public class LoginFormController implements Initializable {
     private TextField usernameTextfield;
     @FXML
     private TextField passwordTextfield;
-
+    /**This Method will check user credentials and log user login attempt to external file.
+     * it will pop an error Alert if there is an unsuccessful user login attempt and change GUI to MainForm.
+     * @param mouseEvent login button clicked*/
     public void loginButtonClicked(MouseEvent mouseEvent) throws SQLException,IOException {
         String username = usernameTextfield.getText();
         String password = passwordTextfield.getText();
@@ -65,11 +66,16 @@ public class LoginFormController implements Initializable {
             createAlert("InvalidInput","Warming", "MissingFiled");
         }
     }
+    /**Override initialize() method for initializable interface.
+     * This method set up LoginForm GUI base on user system default Locale and languageDropDown comboBox. Note:for this project only LoginForm will be translate with different language.
+     * And there only two available language to be choose from(en/fr). All other Locale different than these two will be display in English.
+     * @param url url.
+     * @param resourceBundle  resourceBoudle*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loginLogger=new LogHelper();
         locationDisplayLabel.setText(ZoneId.systemDefault().getId() + "  ");
-        languageList = FXCollections.observableArrayList();
+        ObservableList<String> languageList = FXCollections.observableArrayList();
         languageList.addAll("English", "Français");
         languageDropdown.setItems(languageList);
         languageDropdown.setTooltip(new Tooltip());
@@ -80,6 +86,7 @@ public class LoginFormController implements Initializable {
         }
         setLocaleDisplay();
     }
+    /**This method will change login form GUI to default Locale. */
     private void setLocaleDisplay(){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Com/Language",Locale.getDefault());
         usernameLabel.setText(resourceBundle.getString("Username"));
@@ -88,6 +95,9 @@ public class LoginFormController implements Initializable {
         loginButton.setText(resourceBundle.getString("Login"));
         languageDropdown.getTooltip().setText(resourceBundle.getString("Selectthelanguage"));
         }
+    /**This method will set up languageDropdown comboBox with user selected values and change login form GUI to corresponding Locale.
+     * It will set default Locale to user selected language.
+     *@param actionEvent user selected item */
     public void languageDropdownSelected(ActionEvent actionEvent) {
         String selectedLanguage = languageDropdown.getValue();
         if(selectedLanguage.equals("Français")){
@@ -99,9 +109,16 @@ public class LoginFormController implements Initializable {
             setLocaleDisplay();
         }
     }
+    /**This method validates user input.
+     * it will pop an error Alert if there is no input for userTextfiled or passwordTextfield.
+     * @return boolean return true or false*/
     private boolean loginValidation(){
         return (usernameTextfield.getText().isEmpty()||passwordTextfield.getText().isEmpty())?false:true;
     }
+    /**This method create a pop up error Alert and display out put to default System Locale.
+     * @param contentKey title key
+     * @param headerKey header key
+     * @param titleKey title key*/
     private void createAlert(String titleKey,String headerKey, String contentKey){
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Com/Language",Locale.getDefault());
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -110,6 +127,10 @@ public class LoginFormController implements Initializable {
         errorAlert.setContentText(resourceBundle.getString(contentKey));
         errorAlert.show();
     }
+    /**This method check if there is a appointment coming in next 15 minutes when user successfully Login and pop up information alert with appointment details.
+     * It creates a current LocalDateTime value called now as reference point for all appointment start time.  It calls getAppointmentList to get all appointments in sqldatabase.
+     * And filter it with Predicate. It will return false for start time from appointment is before the now valuable or start time is after now pulse 15 minutes and return
+     * true for any other case.*/
     private void isUpComingAppointmentIn15Min() throws SQLException {
         LocalDateTime now = LocalDateTime.now();
         Alert informAlert = new Alert(Alert.AlertType.INFORMATION);

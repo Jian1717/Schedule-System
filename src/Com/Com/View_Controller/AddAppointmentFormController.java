@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/**AddAppointmentFormController handle all the event, action and GUI components that happened in AddAppointmentForm.*/
+/**AddAppointmentFormController handle all the event, action and GUI components that happened in AddAppointmentForm. */
 public class AddAppointmentFormController implements Initializable {
     private boolean isModify=false;
     private String title;
@@ -197,7 +197,7 @@ public class AddAppointmentFormController implements Initializable {
         customerID=Integer.valueOf(customerComboBox.getValue().getCustomerID());
 
     }
-    /**This method preload addAppointmentForm with values from selected appointments
+    /**This method preload addAppointmentForm with values from selected appointments.
      * it will call getAppointment() method from DBhelper class to get information of selected appointment.  And set correspond values in GUI component in addAppointmentForm.
      * @param appointmentID selected appointment ID*/
     public void modifyAppointment(int appointmentID) throws SQLException {

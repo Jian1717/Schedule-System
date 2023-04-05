@@ -80,7 +80,8 @@ public class AddCustomerFormController implements Initializable {
             }
         }
     }
-
+    /**This load the content in customerFirstLevelDivisionComboBox to corresponding country selected in customerCountryComBoBox.
+     * @param actionEvent CountryComboBox is Selected*/
     public void CountrySelected(ActionEvent actionEvent) throws SQLException {
         customerFirstLevelDivisionComboBox.setItems(DBHelper.getFirstLevelDivisionDataList(customerCountryComboBOX.getSelectionModel().getSelectedItem().getCountryID()));
         customerFirstLevelDivisionComboBox.setVisibleRowCount(8);
@@ -98,7 +99,13 @@ public class AddCustomerFormController implements Initializable {
             throwables.printStackTrace();
         }
     }
-
+    /**This method preload AddCustomerForm with values from selected customer.
+     * it will call getAppointment() method from DBhelper class to get information of selected customer.  And set correspond values in GUI component in addAppointmentForm.
+     * There two lambda expression expression used in this method. Predicate getSelectedCustomerCountryDate takes a country object and get its country name.  And then compare it with selected customer country name.
+     * it will return true for a match and false for a mismatch.  And second time I used Predicate functional interface is when setting up customerFirstLevelDivisionComboBox to selected customer's first level division value.
+     * I called getItems() method on customerFirstLevelDivisionComboBox to get all the FirstLevelDivision data store in the comboBox.  I then I call the filter() method and pass Predicate as parameter.  It takes a FirstLevelDivision
+     * and call getDivisionID() to get the associated DivisionID value.  Then it will compare value with selected customer. Returning true if there is a match or false for a mismatch. Last,setting the comboBox with first item in the filterList.
+     * @param customerID selected appointment ID*/
     public void modifyCustomer(int customerID) throws SQLException {
         Customer selectCustomer = DBHelper.getCustomer(customerID);
         isModify=true;
