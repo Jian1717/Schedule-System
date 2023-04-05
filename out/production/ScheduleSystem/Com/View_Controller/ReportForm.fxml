@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Com.View_Controller.ReportFormController">
+   <children>
+      <Button layoutX="472.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#resultOKClicked" prefHeight="25.0" prefWidth="54.0" text="OK" />
+      <Label fx:id="resultTitleLabel" layoutX="27.0" layoutY="26.0" prefHeight="34.0" prefWidth="500.0" text="Result Title">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="resultScrollPane" layoutX="27.0" layoutY="78.0" prefHeight="243.0" prefWidth="500.0" />
+   </children>
+</AnchorPane>

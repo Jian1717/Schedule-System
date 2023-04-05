@@ -1,6 +1,7 @@
 package Com.View_Controller;
 
 import Com.DAO.DBHelper;
+import Com.Helper.ReportHelper;
 import Com.Model.Appointment;
 import Com.Model.Customer;
 import javafx.collections.FXCollections;
@@ -90,7 +91,7 @@ public class MainFormController implements Initializable {
         Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (result.get() == ButtonType.OK) {
             if (!(customerTableView.getSelectionModel().getSelectedItem()==null)) {
-                int totalNumberOfAppointmentWithCustomer=DBHelper.getTotalAppointmentOfCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID()).size();
+                int totalNumberOfAppointmentWithCustomer=DBHelper.getCustomerAppointmentList(customerTableView.getSelectionModel().getSelectedItem().getCustomerID()).size();
                 if(totalNumberOfAppointmentWithCustomer>0){
                     Alert confirmationAlert1 = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert1.setTitle("Confirmation Dialog");
@@ -139,14 +140,20 @@ public class MainFormController implements Initializable {
         confirmationAlert.setHeaderText("Delete an appointment");
         confirmationAlert.setContentText("Do you want continue deleting selected appointment?");
         Optional<ButtonType> result = confirmationAlert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (!(appointmentTableView.getSelectionModel().getSelectedItem()==null)) {
-                DBHelper.deleteAppointment(appointmentTableView.getSelectionModel().getSelectedItem().getAppointmentID());
-                setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList());
-            } else {
-                Alert productComponentListIsNotEmpty = new Alert(Alert.AlertType.ERROR, "Please select an appointment to be deleted");
-                productComponentListIsNotEmpty.show();
+        if (!(appointmentTableView.getSelectionModel().getSelectedItem()==null)) {
+            if (result.get() == ButtonType.OK) {
+                if(DBHelper.deleteAppointment(appointmentTableView.getSelectionModel().getSelectedItem().getAppointmentID())==1){
+                  Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+                  informationAlert.setTitle("Information");
+                  informationAlert.setHeaderText("Successful Deleted");
+                  informationAlert.setContentText("Appointment No."+appointmentTableView.getSelectionModel().getSelectedItem().getAppointmentID()+" ("+appointmentTableView.getSelectionModel().getSelectedItem().getType()+") is cancelled.");
+                  informationAlert.show();
+                  setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList());
+                }
             }
+        } else {
+            Alert productComponentListIsNotEmpty = new Alert(Alert.AlertType.ERROR, "Please select an appointment to be deleted");
+            productComponentListIsNotEmpty.show();
         }
     }
 
@@ -154,6 +161,15 @@ public class MainFormController implements Initializable {
         appointmentFilter(appointmentComboBox.getValue());
     }
 
+    public void monthlySummaryClicked(ActionEvent actionEvent) throws SQLException, IOException {
+            setReportForm("Monthly Summary Report",ReportHelper.getTypeAppointReport(),actionEvent);
+    }
+    public void contactAppointmentReportClicked(ActionEvent actionEvent) throws SQLException, IOException {
+        setReportForm("Contact Appointment Report",ReportHelper.getContactAppointmentReport(),actionEvent);
+    }
+    public void customerAppointmentReportClicked(ActionEvent actionEvent) throws SQLException, IOException {
+        setReportForm("Customer Appointment Report",ReportHelper.getCustomerAppointmentReport(),actionEvent);
+    }
     public void logOffClicked(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("LoginForm.fxml"));
         Stage stage = (Stage) ((MenuItem) actionEvent.getSource()).getParentPopup().getOwnerNode().getScene().getWindow();
@@ -175,6 +191,7 @@ public class MainFormController implements Initializable {
             throwables.printStackTrace();
         }
     }
+
     private void setCustomerTableView(TableView<Customer> tableView,ObservableList<Customer> customersList){
         tableView.setItems(customersList);
         customerIDCol.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
@@ -182,6 +199,7 @@ public class MainFormController implements Initializable {
         customerPhoneCol.setCellValueFactory(new PropertyValueFactory<>("Phone"));
         customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("FullAddress"));
     }
+
     private void setAppointmentTableView(TableView<Appointment> tableView, ObservableList<Appointment> appointmentsList){
         tableView.setItems(appointmentsList);
         appointmentContactCol.setCellValueFactory(new PropertyValueFactory<>("ContactID"));
@@ -195,6 +213,7 @@ public class MainFormController implements Initializable {
         appointmentTitleCol.setCellValueFactory(new PropertyValueFactory<>("Title"));
         appointmentTypeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
     }
+
     private void appointmentFilter(String filter) throws SQLException {
         LocalDateTime now=LocalDateTime.now();
         switch (filter){
@@ -211,11 +230,22 @@ public class MainFormController implements Initializable {
                     if(s.getStart().isBefore(now)||s.getStart().isAfter(now.plusMonths(1))){
                         return false;
                     }
-                    return true;                }));
+                    return true;
+                }));
                 break;
             default:
                 setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList());
         }
     }
-
+    private void setReportForm(String title, String content,ActionEvent actionEvent) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("ReportForm.fxml"));
+        loader.load();
+        ReportFormController modifyController = loader.getController();
+        modifyController.setResultForm(title,content);
+        Stage stage = (Stage) ((MenuItem) actionEvent.getSource()).getParentMenu().getParentPopup().getOwnerNode().getScene().getWindow();
+        Scene scene = new Scene(loader.getRoot(), 550, 400);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

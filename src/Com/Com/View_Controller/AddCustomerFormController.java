@@ -156,7 +156,7 @@ public class AddCustomerFormController implements Initializable {
     private void backToMainForm(MouseEvent mouseEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 860, 630);
+        Scene scene = new Scene(root, 880, 630);
         stage.setScene(scene);
         stage.show();
     }

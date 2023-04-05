@@ -139,7 +139,7 @@ public class AddAppointmentFormController implements Initializable {
             }else {
                 if(TimeHelper.isInBusinessHours(testDate1,testDate2)&&!(customerComboBox.getSelectionModel().getSelectedItem()==null)){
                     boolean isOverlap=false;
-                    for (Appointment appointment:DBHelper.getTotalAppointmentOfCustomer(customerComboBox.getSelectionModel().getSelectedItem().getCustomerID())){
+                    for (Appointment appointment:DBHelper.getCustomerAppointmentList(customerComboBox.getSelectionModel().getSelectedItem().getCustomerID())){
                         if(TimeHelper.isOverlapTime(appointment.getStart(),appointment.getEnd(),testDate1,testDate2)){
                             isOverlap=true;
                         }
@@ -204,7 +204,7 @@ public class AddAppointmentFormController implements Initializable {
     private void backToMainForm(MouseEvent mouseEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 860, 630);
+        Scene scene = new Scene(root, 880, 630);
         stage.setScene(scene);
         stage.show();
     }

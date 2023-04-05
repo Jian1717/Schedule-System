@@ -2,6 +2,7 @@ package Com.View_Controller;
 import Com.DAO.DBHelper;
 import Com.Helper.LogHelper;
 import Com.Helper.TimeHelper;
+import Com.Model.Appointment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -48,15 +50,16 @@ public class LoginFormController implements Initializable {
         String password = passwordTextfield.getText();
         if (loginValidation()) {
             if(DBHelper.checkUserCredentials(username,password)){
-                loginLogger.writeLoginLog("Username: "+username+" Is-A-Successful-login: True TimeStamp: "+ TimeHelper.timeStamp());
+                loginLogger.writeLoginLog("Username: "+username+" Is-A-Successful-login: True TimeStamp: "+ TimeHelper.timeStamp()+" "+ZoneId.systemDefault().getId());
                 Parent root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
                 Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root, 860, 630);
+                Scene scene = new Scene(root, 880, 630);
                 stage.setScene(scene);
                 stage.show();
+                isUpComingAppointmentIn15Min();
             }else {
                 createAlert("InvalidInput","Warming","IncorrectUsername/Password");
-                loginLogger.writeLoginLog("Username: "+username+" Is-A-Successful-login: False TimeStamp: "+ TimeHelper.timeStamp());
+                loginLogger.writeLoginLog("Username: "+username+" Is-A-Successful-login: False TimeStamp: "+ TimeHelper.timeStamp()+" "+ZoneId.systemDefault().getId());
             }
         } else {
             createAlert("InvalidInput","Warming", "MissingFiled");
@@ -106,6 +109,29 @@ public class LoginFormController implements Initializable {
         errorAlert.setHeaderText(resourceBundle.getString(headerKey));
         errorAlert.setContentText(resourceBundle.getString(contentKey));
         errorAlert.show();
+    }
+    private void isUpComingAppointmentIn15Min() throws SQLException {
+        LocalDateTime now = LocalDateTime.now();
+        Alert informAlert = new Alert(Alert.AlertType.INFORMATION);
+        String upcomingAppointment="";
+        for (Appointment appointment:DBHelper.getAppointmentList().filtered(s->{
+            if(s.getStart().isBefore(now)||s.getStart().isAfter(now.minusMinutes(15))){
+                return false;
+            }
+            return true;
+        })) {
+            upcomingAppointment+="Appointment ID:  "+ appointment.getAppointmentID()+" Type: "+appointment.getType()+ " Start: "+appointment.getStartTime()+" End: "+appointment.getEndTime()+"\n";
+        }
+        if(upcomingAppointment.isEmpty()){
+            informAlert.setTitle("Information");
+            informAlert.setContentText("There is no up coming appointment in next 15 minutes");
+            informAlert.show();
+        }else {
+            informAlert.setTitle("Information");
+            informAlert.setContentText(upcomingAppointment);
+            informAlert.show();
+        }
+
     }
 
 }

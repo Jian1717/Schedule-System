@@ -140,6 +140,28 @@ public interface DBHelper {
         }
         return allAppointmentList;
     }
+    public static ObservableList<Appointment> getContactAppointmentList(int contactID) throws SQLException{
+        ObservableList<Appointment> contactAppointmentList = FXCollections.observableArrayList();
+        String sql="Select * from APPOINTMENTS WHERE Contact_ID=?";
+        PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
+        sqlQueryStatement.setInt(1,contactID);
+        ResultSet resultSet=sqlQueryStatement.executeQuery();
+        while (resultSet.next()){
+            contactAppointmentList.add(new Appointment(resultSet.getInt("Appointment_ID"),resultSet.getString("Title"),resultSet.getString("Description"),resultSet.getString("Type"),resultSet.getString("Location"),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("Start").toLocalDateTime()),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("End").toLocalDateTime()),resultSet.getInt("User_ID"),resultSet.getInt("Customer_ID"),resultSet.getInt("Contact_ID")));
+        }
+        return contactAppointmentList;
+    }
+    public static ObservableList<Appointment> getCustomerAppointmentList(int customerID) throws SQLException {
+        ObservableList<Appointment> resultList = FXCollections.observableArrayList();
+        String sql="Select * from APPOINTMENTS WHERE Customer_ID=?";
+        PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
+        sqlQueryStatement.setInt(1,customerID);
+        ResultSet resultSet=sqlQueryStatement.executeQuery();
+        while (resultSet.next()){
+            resultList.add(new Appointment(resultSet.getInt("Appointment_ID"),resultSet.getString("Title"),resultSet.getString("Description"),resultSet.getString("Type"),resultSet.getString("Location"),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("Start").toLocalDateTime()),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("End").toLocalDateTime()),resultSet.getInt("User_ID"),resultSet.getInt("Customer_ID"),resultSet.getInt("Contact_ID")));
+        }
+        return resultList;
+    }
     public static Customer getCustomer(int customerID)throws SQLException{
         String sql="Select * from CUSTOMERS WHERE Customer_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -220,17 +242,5 @@ public interface DBHelper {
             userList.add(new User(resultSet.getInt("User_ID"),resultSet.getString("User_Name")));
         }
         return userList;
-    }
-    public static List<Appointment> getTotalAppointmentOfCustomer(int customerID) throws SQLException {
-        int result=0;
-        ArrayList<Appointment> resultList=new ArrayList<Appointment>();
-        String sql="Select * from APPOINTMENTS WHERE Customer_ID=?";
-        PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
-        sqlQueryStatement.setInt(1,customerID);
-        ResultSet resultSet=sqlQueryStatement.executeQuery();
-        while (resultSet.next()){
-            resultList.add(new Appointment(resultSet.getInt("Appointment_ID"),resultSet.getString("Title"),resultSet.getString("Description"),resultSet.getString("Type"),resultSet.getString("Location"),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("Start").toLocalDateTime()),TimeHelper.toDefaultSystemTime(resultSet.getTimestamp("End").toLocalDateTime()),resultSet.getInt("User_ID"),resultSet.getInt("Customer_ID"),resultSet.getInt("Contact_ID")));
-        }
-        return resultList;
     }
 }
