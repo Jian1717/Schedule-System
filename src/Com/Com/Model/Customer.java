@@ -11,7 +11,6 @@ public class Customer {
     private String address;
     private int divisionID;
     private String postalCode;
-    private int countryID;
     public Customer(int customerID, String name, String phone, String address,int divisionID,String postalCode) {
         this.customerID = customerID;
         this.name = name;

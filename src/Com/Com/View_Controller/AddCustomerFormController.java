@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+/**AddCustomerFormController handle all the event, action and GUI components that happened in AddCustomerForm.*/
 public class AddCustomerFormController implements Initializable {
     private boolean isModify=false;
     private String name;
@@ -47,7 +48,9 @@ public class AddCustomerFormController implements Initializable {
     private ComboBox<FirstLevelDivision> customerFirstLevelDivisionComboBox;
     @FXML
     private ComboBox<Country> customerCountryComboBOX;
-
+    /**This Method call backToMainForm method when mouseEvent detected.
+     * User needs to confirm cancel action with confirmation alert.
+     * @param mouseEvent cancel button clicked*/
     public void customerCancelClicked(MouseEvent mouseEvent) throws IOException {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirmation Dialog");
@@ -58,7 +61,9 @@ public class AddCustomerFormController implements Initializable {
             backToMainForm(mouseEvent);
         }
     }
-
+    /**This method add or update a customer when add button is clicked.
+     * After successfully add or update a customer, it will call backToMainForm() method to change GUI into main form.
+     * @param mouseEvent add button clicked*/
     public void customerAddButtonClicked(MouseEvent mouseEvent) throws SQLException, IOException {
         if(inputValidation()){
             if (isModify){
@@ -80,7 +85,10 @@ public class AddCustomerFormController implements Initializable {
         customerFirstLevelDivisionComboBox.setItems(DBHelper.getFirstLevelDivisionDataList(customerCountryComboBOX.getSelectionModel().getSelectedItem().getCountryID()));
         customerFirstLevelDivisionComboBox.setVisibleRowCount(8);
     }
-
+    /**Override initialize() method for initializable interface.
+     * This method set up ComboBox's content in AddCustomerForm.
+     * @param url url.
+     * @param resourceBundle  resourceBoudle*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -90,6 +98,7 @@ public class AddCustomerFormController implements Initializable {
             throwables.printStackTrace();
         }
     }
+
     public void modifyCustomer(int customerID) throws SQLException {
         Customer selectCustomer = DBHelper.getCustomer(customerID);
         isModify=true;
@@ -115,6 +124,9 @@ public class AddCustomerFormController implements Initializable {
             return s.getDivisionID()==selectCustomer.getDivisionID();
         }).get(0));
     }
+    /**This method validates user input.
+     * it will pop an error Alert if there is an invalid input.
+     * @return boolean return true or false*/
     private boolean inputValidation(){
         String errorMessage="";
         if(customerAddressTextField.getText().isEmpty()){
@@ -146,6 +158,8 @@ public class AddCustomerFormController implements Initializable {
              return false;
          }
     }
+    /**This method read user input from AddCustomerForm.
+     * it will save corresponding value to local variables*/
     private void getUserInput(){
         name=customerNameTextField.getText();
         phone=customerPhoneTextField.getText();
@@ -153,6 +167,8 @@ public class AddCustomerFormController implements Initializable {
         postalCode=customerPostalCodeTextField.getText();
         firstLevelDivisionId=customerFirstLevelDivisionComboBox.getSelectionModel().getSelectedItem().getDivisionID();
     }
+    /**This Method change GUI into main form.
+     * @param mouseEvent cancel button clicked*/
     private void backToMainForm(MouseEvent mouseEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();

@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**AddAppointmentFormController handle all the event, action and GUI components that happened in AddAppointmentForm.*/
 public class AddAppointmentFormController implements Initializable {
     private boolean isModify=false;
     private String title;
@@ -60,7 +60,9 @@ public class AddAppointmentFormController implements Initializable {
     private ComboBox<User> userComboBox;
     @FXML
     private ComboBox<Contact> contactComboBox;
-
+    /**This method add or update appointment when add button is clicked.
+     * After successfully add or update appointment, it will call backToMainForm() method to change GUI into main form.
+     * @param mouseEvent add button clicked*/
     public void appointmentAddButtonClicked(MouseEvent mouseEvent) throws SQLException, IOException {
         if(inputValidation()){
             if(isModify){
@@ -78,7 +80,9 @@ public class AddAppointmentFormController implements Initializable {
             }
         }
     }
-
+    /**This Method call backToMainForm method when mouseEvent detected.
+     * User needs to confirm cancel action with confirmation alert.
+     * @param mouseEvent cancel button clicked*/
     public void appointmentCancelButtonClicked(MouseEvent mouseEvent) throws IOException {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirmation Dialog");
@@ -89,7 +93,10 @@ public class AddAppointmentFormController implements Initializable {
             backToMainForm(mouseEvent);
         }
     }
-
+    /**Override initialize() method for initializable interface.
+     * This method set up ComboBox's content in addAppointmentForm.
+     * @param url url.
+     * @param resourceBundle  resourceBoudle*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -100,6 +107,9 @@ public class AddAppointmentFormController implements Initializable {
             throwables.printStackTrace();
         }
     }
+    /**This method validates user input.
+     * it will pop an error Alert if there is an invalid input.
+     * @return boolean return true or false*/
     private boolean inputValidation() throws SQLException {
         String errorMessage="";
         boolean isAllDateFillOut=true;
@@ -173,6 +183,8 @@ public class AddAppointmentFormController implements Initializable {
             return false;
         }
     }
+    /**This method read user input from addAppointmentForm.
+     * it will save corresponding value to local variables*/
     private void getUserInput(){
         title=appointmentTitleTextField.getText();
         location=appointmentLocationTextField.getText();
@@ -185,6 +197,9 @@ public class AddAppointmentFormController implements Initializable {
         customerID=Integer.valueOf(customerComboBox.getValue().getCustomerID());
 
     }
+    /**This method preload addAppointmentForm with values from selected appointments
+     * it will call getAppointment() method from DBhelper class to get information of selected appointment.  And set correspond values in GUI component in addAppointmentForm.
+     * @param appointmentID selected appointment ID*/
     public void modifyAppointment(int appointmentID) throws SQLException {
         isModify=true;
         Appointment selectedAppointment=DBHelper.getAppointment(appointmentID);
@@ -201,6 +216,8 @@ public class AddAppointmentFormController implements Initializable {
         userComboBox.setValue(DBHelper.getUser(selectedAppointment.getUserID()));
         customerComboBox.setValue(DBHelper.getCustomer(selectedAppointment.getCustomerID()));
     }
+    /**This Method change GUI into main form.
+     * @param mouseEvent cancel button clicked*/
     private void backToMainForm(MouseEvent mouseEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MainForm.fxml"));
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
