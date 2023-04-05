@@ -524,3 +524,66 @@
   <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-05T11:25:47.202909 America/New_York</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-05T15:27:10.012161400Z</date>
+  <millis>1680708430012</millis>
+  <nanos>161400</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-05T11:27:09.997161100 America/New_York</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-05T15:57:40.675763500Z</date>
+  <millis>1680710260675</millis>
+  <nanos>763500</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-05T11:57:40.664762400 America/New_York</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-05T16:09:13.532172Z</date>
+  <millis>1680710953532</millis>
+  <nanos>172000</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-05T12:09:13.521170600 America/New_York</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-05T16:20:29.529849700Z</date>
+  <millis>1680711629529</millis>
+  <nanos>849700</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-05T12:20:29.518849 America/New_York</message>
+</record>

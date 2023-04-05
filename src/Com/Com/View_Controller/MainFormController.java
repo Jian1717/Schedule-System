@@ -88,31 +88,40 @@ public class MainFormController implements Initializable {
         confirmationAlert.setTitle("Confirmation Dialog");
         confirmationAlert.setHeaderText("Delete an appointment");
         confirmationAlert.setContentText("Do you want continue deleting selected customer?");
-        Optional<ButtonType> result = confirmationAlert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (!(customerTableView.getSelectionModel().getSelectedItem()==null)) {
-                int totalNumberOfAppointmentWithCustomer=DBHelper.getCustomerAppointmentList(customerTableView.getSelectionModel().getSelectedItem().getCustomerID()).size();
-                if(totalNumberOfAppointmentWithCustomer>0){
+        if (!(customerTableView.getSelectionModel().getSelectedItem()==null)) {
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                StringBuffer appointmentAssociated=new StringBuffer();
+                DBHelper.getCustomerAppointmentList(customerTableView.getSelectionModel().getSelectedItem().getCustomerID()).forEach(s->{
+                    appointmentAssociated.append("Appointment ID: "+s.getAppointmentID()+" Type: "+s.getType()+"\n");
+                });
+                if(!appointmentAssociated.toString().isEmpty()){
                     Alert confirmationAlert1 = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert1.setTitle("Confirmation Dialog");
                     confirmationAlert1.setHeaderText("Warming");
-                    confirmationAlert1.setContentText("This customer has "+totalNumberOfAppointmentWithCustomer+" appointment(s).  Do you want continue deleting selected customer? This action will delete all appointments that associated with this customer.");
+                    confirmationAlert1.setContentText("This customer has "+appointmentAssociated.toString().split("\n").length +" appointment(s).  Do you want continue deleting selected customer? This action will delete All appointments that associated with this customer.");
                     Optional<ButtonType> result1 = confirmationAlert1.showAndWait();
                     if(result1.get()==ButtonType.OK){
                         DBHelper.deleteAllAppointmentFromACustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
                         setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList());
+                        Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
+                        informationAlert.setTitle("Information");
+                        informationAlert.setHeaderText("Customer Successful Deleted");
+                        informationAlert.setContentText("All following appointment are deleted:\n"+appointmentAssociated);
+                        informationAlert.show();
                     }else {
                         return;
                     }
                 }
                 DBHelper.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
                 setCustomerTableView(customerTableView,DBHelper.getCustomerList());
-            } else {
+            }
+        } else {
                 Alert productComponentListIsNotEmpty = new Alert(Alert.AlertType.ERROR, "Please select a customer to be deleted");
                 productComponentListIsNotEmpty.show();
             }
         }
-    }
+
 
     public void appointmentModifyClicked(MouseEvent mouseEvent) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
@@ -139,14 +148,14 @@ public class MainFormController implements Initializable {
         confirmationAlert.setTitle("Confirmation Dialog");
         confirmationAlert.setHeaderText("Delete an appointment");
         confirmationAlert.setContentText("Do you want continue deleting selected appointment?");
-        Optional<ButtonType> result = confirmationAlert.showAndWait();
         if (!(appointmentTableView.getSelectionModel().getSelectedItem()==null)) {
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 if(DBHelper.deleteAppointment(appointmentTableView.getSelectionModel().getSelectedItem().getAppointmentID())==1){
                   Alert informationAlert = new Alert(Alert.AlertType.INFORMATION);
                   informationAlert.setTitle("Information");
                   informationAlert.setHeaderText("Successful Deleted");
-                  informationAlert.setContentText("Appointment No."+appointmentTableView.getSelectionModel().getSelectedItem().getAppointmentID()+" ("+appointmentTableView.getSelectionModel().getSelectedItem().getType()+") is cancelled.");
+                  informationAlert.setContentText("Appointment No."+appointmentTableView.getSelectionModel().getSelectedItem().getAppointmentID()+" ("+appointmentTableView.getSelectionModel().getSelectedItem().getType()+") is deleted.");
                   informationAlert.show();
                   setAppointmentTableView(appointmentTableView,DBHelper.getAppointmentList());
                 }
@@ -160,7 +169,6 @@ public class MainFormController implements Initializable {
     public void appointmentComboBoxClicked(ActionEvent actionEvent) throws SQLException {
         appointmentFilter(appointmentComboBox.getValue());
     }
-
     public void monthlySummaryClicked(ActionEvent actionEvent) throws SQLException, IOException {
             setReportForm("Monthly Summary Report",ReportHelper.getTypeAppointReport(),actionEvent);
     }

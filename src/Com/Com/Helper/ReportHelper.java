@@ -24,24 +24,37 @@ public interface ReportHelper {
         for (HashMap.Entry<String, Integer> resultValue : result.entrySet()) {
             report.append(resultValue.getKey()+" - "+resultValue.getValue()+"\n");
         }
+        if(report.length()==0){
+            report.append("No appointment in the system");
+        }
         return report.toString();
     }
     public static String getContactAppointmentReport() throws SQLException {
         StringBuffer report=new StringBuffer();
+        int length;
         for(Contact contact:DBHelper.getContactDataList()){
             report.append("Contact: "+contact.toString()+"\n");
+            length=report.length();
             for(Appointment appointment:DBHelper.getContactAppointmentList(contact.getId())){
                 report.append("Appointment ID: "+appointment.getAppointmentID()+" Title: "+appointment.getTitle()+" Type: "+appointment.getType()+" Description: "+appointment.getDescription()+" Start: "+appointment.getStartTime()+" End: "+appointment.getEndTime()+" Customer ID: "+appointment.getCustomerID()+"\n");
             }
+            if(length==report.length()){
+                report.append("No up coming appointment \n");
+            }
         }
+
         return report.toString();
     }
     public static String getCustomerAppointmentReport() throws SQLException{
         StringBuffer report=new StringBuffer();
         for(Customer customer:DBHelper.getCustomerList()){
-            report.append("Customer: "+customer.getName()+"ID: "+customer.getCustomerID()+"\n");
+            report.append("Customer: "+customer.getName()+" ID: "+customer.getCustomerID()+"\n");
+            int length= report.length();
             for(Appointment appointment:DBHelper.getCustomerAppointmentList(customer.getCustomerID())){
                 report.append("Appointment ID: "+appointment.getAppointmentID()+" Title: "+appointment.getTitle()+" Type: "+appointment.getType()+" Description: "+appointment.getDescription()+" Start: "+appointment.getStartTime()+" End: "+appointment.getEndTime()+"\n");
+            }
+            if(length==report.length()){
+                report.append("No up coming appointment \n");
             }
         }
         return report.toString();
