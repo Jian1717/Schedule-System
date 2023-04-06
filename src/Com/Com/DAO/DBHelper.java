@@ -8,10 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
+/**This interface contain useful methods that handling SQL Database CRUD in this application. */
 public interface DBHelper {
+    /**This method insert an appointment into appointments table in the Database.
+     * @param title appointment title
+     * @param contact_ID  contact ID
+     * @param customer_ID customer ID
+     * @param description appointment description
+     * @param end appointment end datetime
+     * @param location appointment location
+     * @param start appointment start datetime
+     * @param type appointment type
+     * @param user_ID user ID
+     * @return 1 for successful insertion 0 for fail insertion */
     public static int insertAppointment(String title, String description, String type, String location, LocalDateTime start, LocalDateTime end, int user_ID, int customer_ID, int contact_ID) throws SQLException {
         String sql= "INSERT INTO APPOINTMENTS (Title, Description, Location, Type, Start, End, User_ID, Customer_ID, Contact_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -26,6 +35,13 @@ public interface DBHelper {
         sqlQueryStatement.setInt(9,contact_ID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method insert a customer into customers table in the Database.
+     * @param name customer name
+     * @param address customer address
+     * @param divisionID FirstLevelDivision ID
+     * @param phone customer phone number
+     * @param postalCode customer postal code
+     * @return 1 for successful insertion 0 for fail insertion */
     public static int insertCustomer(String name, String address,String postalCode,String phone,int divisionID) throws SQLException {
         String sql="INSERT INTO CUSTOMERS (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -36,6 +52,14 @@ public interface DBHelper {
         sqlQueryStatement.setInt(5,divisionID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method update a customer in the customers table.
+     * @param customerID customer ID
+     * @param name customer name
+     * @param address customer address
+     * @param divisionID FirstLevelDivision ID
+     * @param phone customer phone number
+     * @param postalCode customer postal code
+     * @return 1 for successful update 0 for fail update */
     public static int updateCustomer(String name, String address,String postalCode,String phone,int divisionID,int customerID) throws SQLException {
         String sql="UPDATE CUSTOMERS SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -47,6 +71,18 @@ public interface DBHelper {
         sqlQueryStatement.setInt(6,customerID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method update an appointment in the appointments table.
+     * @param appointmentID appointment ID
+     * @param title appointment title
+     * @param contact_ID  contact ID
+     * @param customer_ID customer ID
+     * @param description appointment description
+     * @param end appointment end datetime
+     * @param location appointment location
+     * @param start appointment start datetime
+     * @param type appointment type
+     * @param user_ID user ID
+     * @return 1 for successful update 0 for fail update */
     public static int updateAppointment(String title, String description, String type, String location, LocalDateTime start, LocalDateTime end, int user_ID, int customer_ID, int contact_ID,int appointmentID) throws SQLException {
         String sql= "UPDATE APPOINTMENTS SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, User_ID=?, Customer_ID=?, Contact_ID=? WHERE Appointment_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -62,24 +98,37 @@ public interface DBHelper {
         sqlQueryStatement.setInt(10,appointmentID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method delete a customer in the customers table.
+     * @param customerID customer ID
+     * @return 1 for successful deletion 0 for fail deletion */
     public static int deleteCustomer(int customerID) throws SQLException{
         String sql="DELETE from CUSTOMERS WHERE Customer_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
         sqlQueryStatement.setInt(1,customerID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method delete an appointment in the appointments table.
+     * @param appointmentID appointment ID
+     * @return 1 for successful deletion 0 for fail deletion*/
     public static int deleteAppointment(int appointmentID) throws SQLException{
         String sql="DELETE from APPOINTMENTS WHERE Appointment_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
         sqlQueryStatement.setInt(1,appointmentID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method delete all the appointments that associated with selected customer in the appointments table.
+     * @param customerID customer ID
+     * @return number of successful deletion 0 for fail deletion*/
     public static int deleteAllAppointmentFromACustomer(int customerID) throws SQLException{
         String sql="DELETE from APPOINTMENTS WHERE Customer_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
         sqlQueryStatement.setInt(1,customerID);
         return sqlQueryStatement.executeUpdate();
     }
+    /**This method will check if user input is matching the credentials in Database.
+     * @param password user password
+     * @param username user username
+     * @return boolean true for match false for mismatch*/
     public static boolean checkUserCredentials(String username, String password) throws SQLException {
         String sql ="SELECT Password FROM USERS WHERE User_Name = ?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -90,6 +139,9 @@ public interface DBHelper {
         }
         return false;
     }
+    /**This method will return name of selected firstLevelDivision.
+     * @param divisionID firstLevelDivision ID
+     * @return firstLevelDivision name*/
     public static String getDivision(int divisionID) throws SQLException {
         String result="";
         String divisionSQL="SELECT Division FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID = ?";
@@ -101,6 +153,9 @@ public interface DBHelper {
         }
         return result;
     }
+    /**This method will return country name of selected firstLevelDivision.
+     * @param divisionID firstLevelDivision ID
+     * @return country name*/
     public static String getCountry(int divisionID) throws SQLException {
         String result="";
         int countryID = 0;
@@ -120,6 +175,8 @@ public interface DBHelper {
         }
         return result;
     }
+    /**This method will return all customers in SQL Database.
+     * @return List of all customers*/
     public static ObservableList<Customer> getCustomerList() throws SQLException {
         ObservableList<Customer> allCustomersList = FXCollections.observableArrayList();
         String sql="Select * from CUSTOMERS";
@@ -130,6 +187,8 @@ public interface DBHelper {
         }
         return allCustomersList;
     }
+    /**This method will return all appointments in SQL Database.
+     * @return List of all appointments*/
     public static ObservableList<Appointment> getAppointmentList() throws SQLException{
         ObservableList<Appointment> allAppointmentList = FXCollections.observableArrayList();
         String sql="Select * from APPOINTMENTS";
@@ -140,6 +199,9 @@ public interface DBHelper {
         }
         return allAppointmentList;
     }
+    /**This method will return all appointments for a specify contact in SQL Database.
+     * @param contactID  contact ID
+     * @return List of appointments*/
     public static ObservableList<Appointment> getContactAppointmentList(int contactID) throws SQLException{
         ObservableList<Appointment> contactAppointmentList = FXCollections.observableArrayList();
         String sql="Select * from APPOINTMENTS WHERE Contact_ID=?";
@@ -151,6 +213,9 @@ public interface DBHelper {
         }
         return contactAppointmentList;
     }
+    /**This method will return all appointments for a specify customer in SQL Database.
+     * @param customerID  customer ID
+     * @return List of appointments*/
     public static ObservableList<Appointment> getCustomerAppointmentList(int customerID) throws SQLException {
         ObservableList<Appointment> resultList = FXCollections.observableArrayList();
         String sql="Select * from APPOINTMENTS WHERE Customer_ID=?";
@@ -162,6 +227,9 @@ public interface DBHelper {
         }
         return resultList;
     }
+    /**This will get a specify customer from SQL Database.
+     * @param customerID customer ID
+     * @return selected customer*/
     public static Customer getCustomer(int customerID)throws SQLException{
         String sql="Select * from CUSTOMERS WHERE Customer_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -172,6 +240,9 @@ public interface DBHelper {
         }
         return null;
     }
+    /**This will get a specify user from SQL Database.
+     * @param userID user ID
+     * @return selected user*/
     public static User getUser(int userID)throws SQLException{
         String sql="Select * from USERS WHERE User_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -182,6 +253,9 @@ public interface DBHelper {
         }
         return null;
     }
+    /**This will get a specify contact from SQL Database.
+     * @param contactID contact ID
+     * @return selected contact*/
     public static Contact getContact(int contactID)throws SQLException{
         String sql="Select * from CONTACTS WHERE Contact_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -192,6 +266,9 @@ public interface DBHelper {
         }
         return null;
     }
+    /**This will get a specify appointment from SQL Database.
+     * @param appointmentID appointment ID
+     * @return selected appointment*/
     public static Appointment getAppointment(int appointmentID) throws SQLException{
         String sql="Select * from APPOINTMENTS WHERE Appointment_ID=?";
         PreparedStatement sqlQueryStatement = DBconnection.getConnection().prepareStatement(sql);
@@ -202,6 +279,8 @@ public interface DBHelper {
         }
         return null;
     }
+    /**This method will return all country in SQL Database.
+     * @return List of all country*/
     public static ObservableList<Country> getCountryDataList() throws SQLException{
         ObservableList<Country> countryList = FXCollections.observableArrayList();
         String sql="Select * from COUNTRIES";
@@ -212,6 +291,9 @@ public interface DBHelper {
         }
         return countryList;
     }
+    /**This method will return all firstLevelDivision for a specify country in SQL Database.
+     * @param countryID country ID
+     * @return List of firstLevelDivision*/
     public static ObservableList<FirstLevelDivision> getFirstLevelDivisionDataList(int countryID) throws SQLException{
         ObservableList<FirstLevelDivision> firstLevelDivisionList = FXCollections.observableArrayList();
         String sql="Select * from FIRST_LEVEL_DIVISIONS WHERE Country_ID=?";
@@ -223,6 +305,8 @@ public interface DBHelper {
         }
         return firstLevelDivisionList;
     }
+    /**This method will return all contact in SQL Database.
+     * @return List of all contact*/
     public static ObservableList<Contact> getContactDataList() throws SQLException{
         ObservableList<Contact> contactDataList = FXCollections.observableArrayList();
         String sql="Select * from CONTACTS";
@@ -233,6 +317,8 @@ public interface DBHelper {
         }
         return contactDataList;
     }
+    /**This method will return all user in SQL Database.
+     * @return List of all user*/
     public static ObservableList<User> getUserDataList() throws SQLException{
         ObservableList<User> userList = FXCollections.observableArrayList();
         String sql="Select * from USERS";

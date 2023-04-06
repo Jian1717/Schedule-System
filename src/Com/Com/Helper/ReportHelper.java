@@ -7,8 +7,12 @@ import Com.Model.Customer;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-
+/**This interface contain useful methods that helps generating report in this application. */
 public interface ReportHelper {
+    /**This method will create a monthly summary report.
+     * I used Lambda expression Consumer in foreach() method to create a key string in "Month - Appointment type" format. And use it in Hashmap result as key values.
+     * It will add new key to the result if there is no matching key in the Map or increment the value by 1 if there is a match.
+     * @return monthly summary report*/
     public static String getTypeAppointReport() throws SQLException {
         HashMap<String,Integer> result= new HashMap<String,Integer>();
         StringBuffer report=new StringBuffer();
@@ -29,6 +33,8 @@ public interface ReportHelper {
         }
         return report.toString();
     }
+    /**This method will create a contact appointment report.
+     * @return monthly contact appointment report*/
     public static String getContactAppointmentReport() throws SQLException {
         StringBuffer report=new StringBuffer();
         int length;
@@ -45,6 +51,8 @@ public interface ReportHelper {
 
         return report.toString();
     }
+    /**This method will create a customer appointment report.
+     * @return monthly customer appointment report*/
     public static String getCustomerAppointmentReport() throws SQLException{
         StringBuffer report=new StringBuffer();
         for(Customer customer:DBHelper.getCustomerList()){

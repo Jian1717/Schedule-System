@@ -46,3 +46,31 @@
   <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-05T15:48:22.472637700 America/New_York</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2023-04-06T13:04:03.131139600Z</date>
+  <millis>1680786243131</millis>
+  <nanos>139600</nanos>
+  <sequence>0</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-06T09:04:03.122139900 America/New_York</message>
+</record>
+<record>
+  <date>2023-04-06T13:04:11.933796400Z</date>
+  <millis>1680786251933</millis>
+  <nanos>796400</nanos>
+  <sequence>1</sequence>
+  <logger>login-Log</logger>
+  <level>INFO</level>
+  <class>Com.Helper.LogHelper</class>
+  <method>writeLoginLog</method>
+  <thread>16</thread>
+  <message>Username: test Is-A-Successful-login: True TimeStamp: 2023-04-06T09:04:11.933796400 America/New_York</message>
+</record>
+</log>
