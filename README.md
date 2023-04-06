@@ -25,5 +25,6 @@ MySQL Connector driver version number:mysql-connector-java-8.0.25
   Run the program by executing the main method in the SchedulingSystem class.
 
 #Additional Report
+
 The third additional report I choose write is a schedule for each customer in the organization that includes appointment ID, title, type and description, start date and time, end date and time, and contact ID.
 
