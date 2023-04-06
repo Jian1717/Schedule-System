@@ -12,8 +12,11 @@ Student Application Version: 1.0
 #Built With
 
 IDE: IntelliJ IDEA Community Edition 2021.1.3 x64
+
 JDK Version: Java SE Development Kit 11.0.11
+
 JavaFX Version: JavaFX-SDK-17.0.1
+
 MySQL Connector driver version number:mysql-connector-java-8.0.25
 
 #Getting Started
