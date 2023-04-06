@@ -76,7 +76,6 @@ public class AddAppointmentFormController implements Initializable {
                 if(DBHelper.insertAppointment(title,description,type,location,startDate,endDate,userID,customerID,contactID)>0){
                     backToMainForm(mouseEvent);
                 }
-
             }
         }
     }
@@ -149,14 +148,18 @@ public class AddAppointmentFormController implements Initializable {
             }else {
                 if(TimeHelper.isInBusinessHours(testDate1,testDate2)&&!(customerComboBox.getSelectionModel().getSelectedItem()==null)){
                     boolean isOverlap=false;
-                    for (Appointment appointment:DBHelper.getCustomerAppointmentList(customerComboBox.getSelectionModel().getSelectedItem().getCustomerID())){
-                        if(TimeHelper.isOverlapTime(appointment.getStart(),appointment.getEnd(),testDate1,testDate2)){
-                            isOverlap=true;
+                    for (Appointment appointment:DBHelper.getCustomerAppointmentList(customerComboBox.getSelectionModel().getSelectedItem().getCustomerID())) {
+                        if (TimeHelper.isOverlapTime(appointment.getStart(), appointment.getEnd(), testDate1, testDate2)) {
+                            if (isModify && appointment.getAppointmentID() == Integer.parseInt(appointmentIDTextField.getText())) {
+                                isOverlap = false;
+                            } else {
+                                isOverlap = true;
+                            }
                         }
                     }
-                    if(isOverlap){
-                        errorMessage+="Selected appointment time frame is overlapping with other appintment.  please choose other time.";
-                    }
+                        if(isOverlap){
+                            errorMessage+="Selected appointment time frame is overlapping with other appointment.  please choose other time.";
+                        }
                 }else {
                     errorMessage+="Selected appointment time is outside business hours(8:00 a.m. to 10:00 p.m. EST)";
                 }
@@ -195,7 +198,6 @@ public class AddAppointmentFormController implements Initializable {
         userID=Integer.valueOf(userComboBox.getValue().getUserID());
         contactID=Integer.valueOf(contactComboBox.getValue().getId());
         customerID=Integer.valueOf(customerComboBox.getValue().getCustomerID());
-
     }
     /**This method preload addAppointmentForm with values from selected appointments.
      * it will call getAppointment() method from DBhelper class to get information of selected appointment.  And set correspond values in GUI component in addAppointmentForm.
