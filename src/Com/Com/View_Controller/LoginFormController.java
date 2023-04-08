@@ -136,7 +136,7 @@ public class LoginFormController implements Initializable {
         Alert informAlert = new Alert(Alert.AlertType.INFORMATION);
         String upcomingAppointment="";
         for (Appointment appointment:DBHelper.getAppointmentList().filtered(s->{
-            if(s.getStart().isBefore(now)||s.getStart().isAfter(now.minusMinutes(15))){
+            if(s.getStart().isBefore(now)||s.getStart().isAfter(now.plusMinutes(15))){
                 return false;
             }
             return true;
